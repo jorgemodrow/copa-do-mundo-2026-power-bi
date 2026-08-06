@@ -1,76 +1,102 @@
-# ⚽ Dashboard Copa do Mundo 2026 – Como transformei Dados do Futebol em Insights com Power BI
+# ⚽ Dashboard Copa do Mundo 2026 — Dados do Futebol transformados em Insights com Power BI
+
 <p align="left">
-  <img src="https://img.shields.io/badge/power_bi-F2C811?style=for-the-badge&logo=powerbi&logoColor=black"/>
-  <img src="https://img.shields.io/badge/status-em%20andamento-yellow?style=for-the-badge" alt="Status: Em andamento"/>
+  <img src="https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=000000" alt="Power BI"/>
+  <img src="https://img.shields.io/badge/DAX-1F4E79?style=for-the-badge" alt="DAX"/>
+  <img src="https://img.shields.io/badge/Power%20Query-217346?style=for-the-badge" alt="Power Query"/>
+  <img src="https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoftexcel&logoColor=ffffff" alt="Excel"/>
+  <img src="https://img.shields.io/badge/Status-Conclu%C3%ADdo-brightgreen?style=for-the-badge" alt="Status: Concluído"/>
 </p>
 
-Projeto de dashboard sobre a Copa do Mundo de 2026, desenvolvido no Power BI com foco na análise de partidas, seleções, jogadores, estádios, gols, assistências, cartões e estatísticas de desempenho. O objetivo foi transformar os dados da competição em uma experiência interativa, capaz de explorar os principais acontecimentos do torneio por meio de indicadores, rankings, comparações e insights, respondendo a perguntas como quais seleções marcaram mais gols, conquistaram mais vitórias, apresentaram o melhor aproveitamento, tiveram maior eficiência ofensiva ou melhor equilíbrio entre ataque e defesa, além de identificar o artilheiro, o líder de assistências, as partidas com maior volume ofensivo e os estádios que receberam mais jogos e gols. Construído como projeto de portfólio, o dashboard aplica conceitos de modelagem dimensional, tratamento e organização de dados, criação de medidas DAX, visualização de dados e experiência do usuário.
+Projeto de análise de dados desenvolvido no **Power BI** para explorar os principais acontecimentos da Copa do Mundo de 2026. O dashboard reúne indicadores, rankings, comparações e insights sobre **partidas, seleções, jogadores, estádios, gols, assistências, cartões e desempenho esportivo**.
+
+O projeto foi criado para portfólio e aplica, de ponta a ponta, conceitos de **coleta e organização de dados, modelagem dimensional, Power Query, DAX, visualização de dados e experiência do usuário**.
 
 ---
 
-## Fonte dos dados
+## Sumário
 
-Os dados foram organizados a partir dos relatórios oficiais das partidas (Full Time Match Report da FIFA), incluindo informações como:
+- [Visão geral](#-visão-geral)
+- [Objetivos do projeto](#-objetivos-do-projeto)
+- [Fonte e preparação dos dados](#-fonte-e-preparação-dos-dados)
+- [Modelagem de dados](#-modelagem-de-dados)
+- [Principais medidas DAX](#-principais-medidas-dax)
+- [Páginas do dashboard](#-páginas-do-dashboard)
+- [Principais insights](#-principais-insights)
+- [Destaques técnicos](#-destaques-técnicos)
+- [Tecnologias utilizadas](#-tecnologias-utilizadas)
+- [Como executar](#-como-executar)
+- [Estrutura do repositório](#-estrutura-do-repositório)
+- [Limitações dos dados](#-limitações-dos-dados)
+- [Próximas melhorias](#-próximas-melhorias)
+- [Aviso](#-aviso)
+- [Autor](#-autor)
 
-- resultados;
-- gols;
-- assistências;
-- cartões;
+---
+
+## Visão geral
+
+A Copa do Mundo gera uma grande quantidade de dados sobre equipes, partidas, jogadores e estádios. Quando esses registros são analisados separadamente, torna-se mais difícil identificar padrões, comparar desempenhos e transformar números em conclusões úteis.
+
+Este projeto organiza essas informações em um dashboard interativo capaz de responder perguntas como:
+
+- Qual seleção marcou mais gols?
+- Quais equipes conquistaram mais vitórias?
+- Qual seleção apresentou o melhor aproveitamento?
+- Quem foi o artilheiro e quem liderou em assistências?
+- Quais partidas tiveram maior volume ofensivo?
+- Quais estádios receberam mais jogos e gols?
+- Existe relação entre finalizações e gols marcados?
+- Qual equipe apresentou maior eficiência ofensiva?
+- Qual seleção teve o melhor equilíbrio entre ataque e defesa?
+
+---
+
+## Objetivos do projeto
+
+- Estruturar dados esportivos em um modelo dimensional.
+- Consolidar o desempenho das seleções como mandantes e visitantes.
+- Criar medidas DAX reutilizáveis e responsivas aos filtros.
+- Desenvolver rankings, indicadores e cartões com textos dinâmicos.
+- Comparar o desempenho de seleções, jogadores, partidas e estádios.
+- Transformar métricas em insights claros e visualmente acessíveis.
+- Construir uma experiência de navegação consistente entre as páginas.
+
+---
+
+## Fonte e preparação dos dados
+
+Os dados foram organizados a partir dos **relatórios oficiais das partidas — Full Time Match Report da FIFA**. Entre as informações utilizadas estão:
+
+- resultados e placares;
+- gols e assistências;
+- cartões amarelos e vermelhos;
 - posse de bola;
-- finalizações;
-- chutes no alvo;
+- finalizações e chutes no alvo;
 - escanteios;
+- seleções e jogadores;
 - estádios;
-- seleções;
-- jogadores;
-- fases e grupos da competição.
+- grupos, rodadas e fases da competição.
 
-Os dados foram reunidos e estruturados manualmente em uma planilha do Excel antes de serem carregados no Power BI.
+Os registros foram reunidos manualmente em uma planilha do **Microsoft Excel**, tratados no **Power Query** e carregados no Power BI para modelagem e análise.
 
 ---
 
-## Tecnologias utilizadas
+## Modelagem de dados
 
-- **Microsoft Power BI Desktop**
-- **DAX**
-- **Power Query**
-- **Microsoft Excel**
-- **Git**
-- **GitHub**
-- **Modelagem dimensional**
-- **Visualização e análise de dados**
+O modelo foi estruturado com tabelas de **dimensão** e **fato**, mantendo os dados descritivos separados dos registros de eventos e resultados.
 
----
+| Tabela                | Tipo / função |
+|-----------------------|---------------|
+| `DimSelecao`          | **Dimensão.** Armazena nome da seleção, continente, confederação, ranking FIFA e quantidade de títulos. Também relaciona os jogadores às suas seleções. |
+| `DimSelecaoCasa`      | **Dimensão de papel.** Representa a seleção mandante e mantém ativo o relacionamento com `FatoPartidas[id_selecao_casa]`. |
+| `DimSelecaoFora`      | **Dimensão de papel.** Representa a seleção visitante e mantém ativo o relacionamento com `FatoPartidas[id_selecao_fora]`. |
+| `DimJogador`          | **Dimensão.** Contém o identificador, o nome e a seleção dos jogadores presentes nos registros de eventos. |
+| `DimEstadio`          | **Dimensão.** Reúne nome oficial, nome utilizado na competição, cidade, país e capacidade dos estádios. |
+| `FatoPartidas`        | **Tabela fato.** Registra cada partida, incluindo data, fase, grupo, estádio, seleções, placar e estatísticas coletivas. |
+| `FatoPartidasJogador` | **Tabela fato.** Registra eventos individuais por partida, como gols, assistências, cartões e gols contra. |
 
-## Contextualização
-
-A Copa do Mundo reúne uma grande quantidade de dados relacionados a partidas, seleções, jogadores, estádios e desempenho esportivo. Quando essas informações são analisadas isoladamente, torna-se mais difícil identificar padrões, comparar equipes e compreender os principais acontecimentos da competição.
-
-Este projeto foi desenvolvido com o objetivo de transformar esses dados em um dashboard interativo no Power BI, permitindo uma análise mais clara e organizada do torneio. A solução apresenta indicadores gerais, rankings, comparações e insights sobre gols, vitórias, aproveitamento, assistências, cartões, finalizações, posse de bola e desempenho das seleções ao longo da competição.
-
-Antes da construção dos visuais, os dados foram organizados no Microsoft Excel e estruturados por meio de um modelo dimensional, separando as informações descritivas em tabelas de dimensão e os registros de acontecimentos em tabelas fato. Essa organização facilitou a criação dos relacionamentos, das medidas DAX e dos filtros utilizados no relatório.
-
-## Estrutura das tabelas
-
-| Nome da tabela | Tipo/Função |
-|---|---|
-| `DimSelecao` | **Dimensão.** Armazena as informações descritivas das seleções, como nome, continente, confederação, ranking FIFA e quantidade de títulos mundiais. Também é utilizada para relacionar cada jogador à sua respectiva seleção. |
-| `DimSelecaoCasa` | **Dimensão de função.** Representa a seleção mandante de cada partida e permite manter ativo o relacionamento com `FatoPartidas[id_selecao_casa]`. |
-| `DimSelecaoFora` | **Dimensão de função.** Representa a seleção visitante de cada partida e permite manter ativo o relacionamento com `FatoPartidas[id_selecao_fora]`. |
-| `DimJogador` | **Dimensão.** Contém o identificador, o nome e a seleção de cada jogador presente nos registros de eventos da competição. |
-| `DimEstadio` | **Dimensão.** Reúne informações sobre os estádios, como nome oficial, nome utilizado na competição, cidade, país e capacidade. |
-| `FatoPartidas` | **Tabela fato.** Armazena os registros de cada partida, incluindo data, fase, grupo, estádio, seleções participantes, placar, posse de bola, finalizações, chutes no alvo, escanteios e cartões. |
-| `FatoPartidasJogador` | **Tabela fato.** Registra os eventos individuais dos jogadores em cada partida, como gols, assistências, cartões amarelos, cartões vermelhos e gols contra. |
-
-A separação entre dimensões e fatos permitiu que o modelo fosse construído com relacionamentos do tipo um para muitos, mantendo as tabelas descritivas no lado 1 e as tabelas com registros de acontecimentos no lado *.
-
-As tabelas DimSelecaoCasa e DimSelecaoFora foram criadas porque uma mesma seleção pode assumir dois papéis diferentes em uma partida: mandante ou visitante. Com essa estrutura, os dois relacionamentos permanecem ativos ao mesmo tempo, evitando caminhos ambíguos no modelo do Power BI.
-
----
-
-## Relacionamentos do modelo
-
-Os principais relacionamentos utilizados foram:
+### Relacionamentos principais
 
 ```text
 DimSelecaoCasa[id_selecao]
@@ -92,295 +118,225 @@ DimSelecao[id_selecao]
 1 ─── * DimJogador[id_selecao]
 ```
 
-## Principais Medidas DAX
+Os relacionamentos foram configurados com cardinalidade **um para muitos**, direção de filtro **única** e status **ativo**.
 
-As medidas DAX foram criadas para fornecer indicadores confiáveis sobre o desempenho da Copa do Mundo de 2026 e permitir análises dinâmicas em todo o dashboard. O principal objetivo foi calcular métricas relacionadas a **partidas, gols, vitórias, empates, derrotas, aproveitamento, saldo de gols, finalizações, posse de bola, cartões, assistências e desempenho individual de jogadores e seleções**.
+### Decisão de modelagem
 
-Como uma seleção pode aparecer tanto como mandante quanto como visitante, várias medidas foram desenvolvidas considerando os dois contextos. Dessa forma, foi possível consolidar corretamente os resultados de cada equipe, independentemente da posição ocupada na partida.
-
-Também foram criadas medidas textuais para apresentar informações completas em cartões, como:
-
-- seleção com mais gols;
-- seleção com mais vitórias;
-- melhor saldo de gols;
-- melhor aproveitamento;
-- artilheiro;
-- líder de assistências;
-- estádio com mais jogos;
-- estádio com mais gols;
-- seleção com maior eficiência ofensiva;
-- equipe com melhor defesa.
-
-As medidas também tratam situações de empate na liderança, exibindo todas as seleções ou jogadores que possuem o mesmo resultado.
-
-As funções DAX mais utilizadas no projeto incluem:
-
-- agregações: `SUM`, `COUNTROWS`, `DISTINCTCOUNT`;
-- proporções e médias: `DIVIDE`, `AVERAGEX`;
-- controle de contexto: `CALCULATE`, `FILTER`, `VALUES`, `ALL`, `ALLSELECTED`;
-- relacionamento virtual entre tabelas: `TREATAS`;
-- criação de tabelas virtuais: `ADDCOLUMNS`, `SELECTCOLUMNS`;
-- rankings e busca de maiores valores: `TOPN`, `MAXX`, `MINX`;
-- tratamento de valores vazios: `COALESCE`, `ISBLANK`;
-- criação de textos dinâmicos: `FORMAT`, `CONCATENATEX`;
-- organização dos cálculos: `VAR` e `RETURN`.
+As tabelas `DimSelecaoCasa` e `DimSelecaoFora` foram criadas porque uma seleção pode assumir dois papéis em uma partida: mandante ou visitante. Essa abordagem, conhecida como **role-playing dimension**, permite manter os dois relacionamentos ativos e evita caminhos ambíguos no modelo.
 
 ---
 
-## Páginas do Dashboard
+## Principais medidas DAX
+
+As medidas DAX foram desenvolvidas para produzir indicadores confiáveis e dinâmicos em diferentes contextos de filtro.
+
+### Indicadores gerais
+
+- total de jogos;
+- total e média de gols;
+- total de finalizações;
+- chutes no alvo e precisão;
+- conversão de finalizações em gols;
+- escanteios;
+- cartões amarelos e vermelhos.
+
+### Indicadores por seleção
+
+- jogos, vitórias, empates e derrotas;
+- gols marcados e sofridos;
+- saldo de gols;
+- pontos e aproveitamento;
+- média de gols;
+- posse média;
+- finalizações e chutes no alvo;
+- eficiência ofensiva;
+- cartões.
+
+### Indicadores de jogadores e estádios
+
+- artilheiro;
+- líder de assistências;
+- participações em gols;
+- cartões por jogador;
+- estádio com mais jogos;
+- estádio com mais gols;
+- média de gols por estádio;
+- maior capacidade.
+
+### Funções DAX utilizadas
+
+- agregação: `SUM`, `COUNTROWS`, `DISTINCTCOUNT`;
+- proporções e médias: `DIVIDE`, `AVERAGEX`;
+- contexto de filtro: `CALCULATE`, `FILTER`, `VALUES`, `ALL`, `ALLSELECTED`;
+- relacionamento virtual: `TREATAS`;
+- tabelas virtuais: `ADDCOLUMNS`, `SELECTCOLUMNS`;
+- rankings e extremos: `TOPN`, `MAXX`, `MINX`;
+- tratamento de valores vazios: `COALESCE`, `ISBLANK`;
+- textos dinâmicos: `FORMAT`, `CONCATENATEX`;
+- organização dos cálculos: `VAR` e `RETURN`.
+
+As medidas de destaque também tratam **empates na liderança**, exibindo todas as equipes ou jogadores que compartilham o maior valor.
+
+---
+
+## Páginas do dashboard
 
 ### 1️⃣ Visão Geral
 
-Apresenta uma visão consolidada dos principais indicadores da competição, incluindo:
+Resumo executivo da competição, com:
 
 - campeão;
-- total de jogos;
-- total de gols;
+- total de jogos e gols;
 - média de gols por partida;
-- total de finalizações;
-- chutes no alvo;
-- precisão dos chutes;
-- conversão das finalizações em gols;
-- escanteios;
-- cartões amarelos;
-- cartões vermelhos.
-
-Também apresenta visualizações como:
-
+- finalizações, chutes no alvo e precisão;
+- conversão ofensiva;
+- escanteios e cartões;
 - gols por grupo;
 - evolução dos gols por dia;
-- distribuição das seleções por confederação;
+- distribuição por confederação;
 - mapa das seleções participantes.
-
----
 
 ### 2️⃣ Seleções
 
-Página voltada para a comparação do desempenho das equipes.
+Comparação do desempenho coletivo:
 
-Entre os principais indicadores estão:
-
-- seleção com mais gols;
-- seleção com mais vitórias;
+- seleções com mais gols e vitórias;
 - melhor saldo de gols;
 - melhor aproveitamento;
-- ranking de gols por seleção;
-- ranking de vitórias;
-- ranking de aproveitamento;
-- saldo de gols;
-- posse média;
-- finalizações;
-- gols sofridos.
-
-A página também possui uma tabela completa com:
-
-- seleção;
-- jogos;
-- vitórias;
-- empates;
-- derrotas;
-- gols marcados;
-- gols sofridos;
-- saldo de gols;
-- pontos;
-- aproveitamento.
-
----
+- rankings por gols e aproveitamento;
+- tabela com jogos, vitórias, empates, derrotas, gols, saldo, pontos e aproveitamento.
 
 ### 3️⃣ Jogadores
 
-Página destinada à análise dos destaques individuais da competição.
-
-Os principais indicadores apresentados são:
+Análise dos destaques individuais:
 
 - artilheiro;
 - líder de assistências;
-- jogador com mais participações em gols;
-- jogadores com mais cartões;
-- gols contra.
-
-A página também apresenta uma tabela com:
-
-- jogador;
-- seleção;
-- gols;
-- assistências;
-- participações em gols;
-- cartões amarelos;
-- cartões vermelhos;
-- gols contra.
-
----
+- maior participação em gols;
+- gols, assistências, cartões e gols contra por jogador.
 
 ### 4️⃣ Partidas
 
-Permite analisar detalhadamente cada jogo da competição.
-
-A página apresenta filtros por:
-
-- partida;
-- fase;
-- grupo;
-- estádio;
-- seleção da casa;
-- seleção visitante.
-
-Também são exibidas comparações entre as equipes em indicadores como:
+Análise detalhada jogo a jogo:
 
 - placar;
 - posse de bola;
 - finalizações;
 - chutes no alvo;
 - escanteios;
-- cartões amarelos;
-- cartões vermelhos.
-
-Além disso, uma tabela apresenta os eventos individuais dos jogadores em cada partida.
-
----
+- cartões;
+- eventos individuais dos jogadores;
+- filtros por partida, fase, grupo, estádio e seleções.
 
 ### 5️⃣ Estádios
 
-Página dedicada à análise dos estádios utilizados durante a competição.
-
-Entre os indicadores apresentados estão:
+Comparação dos locais da competição:
 
 - estádio com mais jogos;
 - estádio com mais gols;
-- estádio com maior capacidade;
-- média de gols por estádio.
-
-As principais visualizações incluem:
-
-- quantidade de jogos por estádio;
-- total de gols por estádio;
-- capacidade dos estádios;
-- média de gols por partida;
-- comparação entre cidades e países-sede.
-
-A página também apresenta uma tabela com informações como:
-
-- nome oficial do estádio;
-- nome utilizado na competição;
-- cidade;
-- país;
-- capacidade;
-- quantidade de jogos;
-- total de gols;
-- média de gols por partida.
-
----
+- maior capacidade;
+- média de gols por estádio;
+- jogos, gols e capacidade por estádio;
+- tabela com cidade, país e indicadores de utilização.
 
 ### 6️⃣ Insights
 
-A página de Insights foi criada para apresentar conclusões obtidas a partir dos dados, evitando apenas repetir rankings e indicadores já apresentados nas outras páginas.
-
-Entre as análises desenvolvidas estão:
+Página dedicada a conclusões analíticas, sem repetir apenas os rankings das demais páginas:
 
 - seleção com maior eficiência ofensiva;
 - equipe com melhor defesa;
 - seleção com maior saldo médio por partida;
 - partida com maior diferença de gols;
 - relação entre finalizações e gols marcados;
-- comparação entre gols marcados e gols sofridos;
+- comparação entre gols marcados e sofridos;
 - equilíbrio entre desempenho ofensivo e defensivo.
 
-Também foram utilizados gráficos de dispersão para analisar relações entre diferentes indicadores.
+---
 
-Exemplos:
+## Principais insights
 
-- finalizações x gols;
-- gols marcados x gols sofridos;
-- volume ofensivo x aproveitamento;
-- eficiência ofensiva x desempenho geral.
+O dashboard permite identificar padrões como:
+
+- uma equipe pode finalizar mais e ainda apresentar baixa eficiência ofensiva;
+- a seleção com mais gols não necessariamente possui o melhor aproveitamento;
+- o artilheiro pode não ser o jogador com mais participações em gols;
+- uma equipe ofensiva pode também sofrer muitos gols;
+- o estádio com mais partidas pode não possuir a maior média de gols;
+- o volume de finalizações pode apresentar relação positiva com a quantidade de gols, mas não garante conversão eficiente.
+
+A página de Insights utiliza cartões textuais e gráficos de dispersão para transformar essas relações em conclusões mais fáceis de interpretar.
 
 ---
 
-## Principais Insights
+## Destaques técnicos
 
-O dashboard permite identificar rapidamente padrões de desempenho e comparar seleções, jogadores, partidas e estádios de maneira mais clara.
-
-### Eficiência ofensiva
-
-Permite identificar quais seleções conseguiram transformar um maior percentual de suas finalizações em gols.
-
-*Exemplo:* Uma seleção pode não ter liderado em número total de finalizações, mas ainda assim apresentar a melhor taxa de conversão ofensiva da competição.
-
-### Volume ofensivo
-
-A comparação entre finalizações e gols ajuda a avaliar se as equipes que mais atacaram também foram as que mais marcaram.
-
-*Exemplo:* Uma equipe pode apresentar alto volume de finalizações, mas baixa eficiência, enquanto outra pode marcar mais gols mesmo finalizando menos.
-
-### Desempenho das seleções
-
-Os rankings de gols, vitórias, saldo e aproveitamento permitem identificar as seleções mais consistentes da competição.
-
-*Exemplo:* Uma equipe pode liderar em gols marcados, enquanto outra apresenta melhor aproveitamento devido a um número maior de vitórias e menor quantidade de derrotas.
-
-### Equilíbrio entre ataque e defesa
-
-A comparação entre gols marcados e gols sofridos permite identificar seleções ofensivas, defensivas ou equilibradas.
-
-*Exemplo:* Algumas equipes podem marcar muitos gols, mas também sofrer uma quantidade elevada, enquanto outras apresentam menor volume ofensivo e maior solidez defensiva.
-
-### Destaques individuais
-
-A análise dos jogadores permite identificar os principais responsáveis pelos gols, assistências e participações ofensivas.
-
-*Exemplo:* O artilheiro da competição pode não ser o mesmo jogador com maior número de participações em gols, já que assistências também são consideradas.
-
-### Estádios
-
-A página de estádios permite comparar a quantidade de partidas, gols e capacidade de cada local.
-
-*Exemplo:* Um estádio pode receber mais jogos, enquanto outro apresenta maior média de gols por partida.
-
-### Partidas
-
-A análise detalhada permite identificar jogos com maior volume ofensivo, maior diferença de gols ou maior quantidade de cartões.
-
-*Exemplo:* A partida mais dominante pode ser definida pela maior diferença entre os gols marcados pelas duas equipes.
+- Construção de modelo dimensional com tabelas fato e dimensão.
+- Uso de dimensões de papel para seleções mandantes e visitantes.
+- Consolidação das estatísticas das equipes nos dois contextos da partida.
+- Medidas DAX sensíveis a filtros de seleção, fase, grupo, partida e estádio.
+- Rankings com filtro Top N.
+- Tratamento de empates em medidas de liderança.
+- Cartões com frases dinâmicas.
+- Tratamento de valores nulos com `COALESCE`.
+- Comparações por meio de gráficos de dispersão.
+- Navegação entre páginas e segmentações interativas.
+- Padronização visual e preocupação com hierarquia de informação.
 
 ---
 
-## Conclusões
+## Tecnologias utilizadas
 
-Ao finalizar este dashboard, foi possível compreender como a organização dos dados e a utilização do Power BI podem transformar uma grande quantidade de registros esportivos em informações claras, interativas e relevantes.
-
-O projeto começou com a coleta e organização dos dados em planilhas do Excel. Em seguida, as informações foram estruturadas em tabelas dimensão e fato, criando um modelo dimensional capaz de representar seleções, jogadores, partidas e estádios.
-
-Um dos principais desafios foi tratar o fato de que uma mesma seleção pode aparecer como mandante ou visitante. Para resolver esse problema, foram criadas dimensões específicas para seleção da casa e seleção visitante, permitindo manter os relacionamentos ativos e evitar caminhos ambíguos no modelo.
-
-Com as medidas DAX, foi possível consolidar os resultados das equipes nos dois contextos, criar rankings, calcular indicadores de desempenho e desenvolver textos automáticos para os cartões de destaque.
-
-O projeto também reforçou a importância de não apenas apresentar números, mas transformar os resultados em análises compreensíveis. Por isso, a página de Insights foi desenvolvida para destacar relações entre finalizações, gols, eficiência ofensiva, equilíbrio defensivo e desempenho das seleções.
-
-Este dashboard representa a aplicação prática de conceitos de **Business Intelligence, modelagem dimensional, análise de dados, DAX, visualização de informações e experiência do usuário**, resultando em um projeto completo para portfólio.
+| Tecnologia           | Aplicação no projeto                                           |
+|----------------------|----------------------------------------------------------------|
+| **Power BI Desktop** | Modelagem, criação dos visuais e desenvolvimento do dashboard. |
+| **Power Query**      | Limpeza, transformação e preparação dos dados.                 |
+| **DAX**              | Criação de medidas, rankings, indicadores e textos dinâmicos.  |
+| **Microsoft Excel**  | Organização inicial e armazenamento da base de dados.          |
+| **Canva**            | Criação autoral dos backgrounds e assets visuais do dashboard  |
+| **Git**              | Versionamento do projeto.                                      |
+| **GitHub**           | Documentação e publicação do portfólio.                        |
 
 ---
 
-## Como Executar o Relatório
+## Como executar
 
-1. Baixe o arquivo `.pbix` e a planilha utilizada como fonte de dados.
-2. Abra o arquivo no Power BI Desktop.
-3. Caso necessário, atualize o caminho da fonte de dados.
-4. Clique em **Atualizar** para carregar as informações.
-5. Navegue pelas páginas utilizando o menu do dashboard.
-6. Utilize os filtros e segmentações para explorar os dados.
+1. Clone ou baixe este repositório.
+2. Abra o arquivo `.pbix` no **Power BI Desktop**.
+3. Caso necessário, altere o caminho da planilha em **Transformar dados → Configurações da fonte de dados**.
+4. Clique em **Atualizar** para recarregar os dados.
+5. Navegue pelas páginas e utilize os filtros para explorar o relatório.
+
+> É necessário ter o Power BI Desktop instalado para abrir o arquivo `.pbix`.
 
 ---
 
-## Tecnologias Utilizadas
+## Estrutura do repositório
 
-- Power BI Desktop;
-- Power Query;
-- DAX;
-- Microsoft Excel;
-- modelagem dimensional;
-- visualização de dados;
-- Git;
-- GitHub.
+```text
+copa-do-mundo-2026-power-bi/
+│
+├── assets/
+│   ├── Visão Geral.png
+│   ├── Seleções.png
+│   ├── Jogadores.png
+│   ├── Partidas.png
+│   ├── Estádios.png
+│   └── Insights.png
+│
+├── dashboard-copa-do-mundo.pbix
+│
+├── CopaMundo2026_DadosPowerBI.xlsx
+│
+└── README.md
+```
+---
+
+## Limitações dos dados
+
+- A coleta foi realizada manualmente a partir dos relatórios oficiais das partidas.
+- A tabela `FatoPartidasJogador` contém apenas jogadores com algum evento registrado, como gol, assistência, cartão ou gol contra.
+- Por esse motivo, o projeto não analisa participação completa do elenco, minutos jogados ou jogadores sem eventos.
+- Resultados e insights dependem da integridade e atualização da planilha utilizada como fonte.
 
 ---
 
@@ -392,12 +348,11 @@ O projeto não possui vínculo, patrocínio ou associação oficial com a FIFA o
 
 ---
 
-## 📬 Contato
+## Autor
 
 Desenvolvido por **Jorge Gabriel Modrow**.
 
-Estudante de Tecnologia em Análise e Desenvolvimento de Sistemas na Universidade Federal do Paraná — UFPR.
+Estudante de Tecnologia em Análise e Desenvolvimento de Sistemas na **Universidade Federal do Paraná — UFPR**.
 
-🔗 LinkedIn: [Jorge Gabriel Modrow](https://www.linkedin.com/in/jorgemodrow/)
-
-🔗 GitHub: [Jorge Gabriel Modrow](https://github.com/jorgemodrow)
+- LinkedIn: [Jorge Gabriel Modrow](https://www.linkedin.com/in/jorgemodrow/)
+- GitHub: [Jorge Gabriel Modrow](https://github.com/jorgemodrow)
