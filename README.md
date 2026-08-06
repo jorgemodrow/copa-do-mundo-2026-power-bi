@@ -1,14 +1,10 @@
 # ⚽ Dashboard Copa do Mundo 2026 — Dados do Futebol transformados em Insights com Power BI
 
 <p align="left">
-  <img src="https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=000000" alt="Power BI"/>
-
-  <img src="https://img.shields.io/badge/DAX-9EC5E6?style=for-the-badge&logoColor=000000" alt="DAX"/>
-
-  <img src="https://img.shields.io/badge/Power%20Query-63D6DE?style=for-the-badge&logoColor=000000" alt="Power Query"/>
-
-  <img src="https://img.shields.io/badge/Excel-7FC99B?style=for-the-badge&logo=microsoftexcel&logoColor=000000" alt="Excel"/>
-
+  <img src="https://img.shields.io/badge/Power%20BI-B58B00?style=for-the-badge&logo=powerbi&logoColor=ffffff" alt="Power BI"/>
+  <img src="https://img.shields.io/badge/DAX-1F4E79?style=for-the-badge" alt="DAX"/>
+  <img src="https://img.shields.io/badge/Power%20Query-217346?style=for-the-badge" alt="Power Query"/>
+  <img src="https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoftexcel&logoColor=ffffff" alt="Excel"/>
   <img src="https://img.shields.io/badge/Status-Conclu%C3%ADdo-brightgreen?style=for-the-badge" alt="Status: Concluído"/>
 </p>
 
