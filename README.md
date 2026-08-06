@@ -398,6 +398,6 @@ Desenvolvido por **Jorge Gabriel Modrow**.
 
 Estudante de Tecnologia em Análise e Desenvolvimento de Sistemas na Universidade Federal do Paraná — UFPR.
 
-🔗 LinkedIn: [adicione aqui o seu perfil](COLOQUE_AQUI_SEU_LINKEDIN)
+🔗 LinkedIn: [Jorge Gabriel Modrow](https://www.linkedin.com/in/jorgemodrow/)
 
-🔗 GitHub: [adicione aqui o seu perfil](COLOQUE_AQUI_SEU_GITHUB)
+🔗 GitHub: [Jorge Gabriel Modrow](https://github.com/jorgemodrow)
