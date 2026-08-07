@@ -1,4 +1,4 @@
-# ⚽ Dashboard Copa do Mundo 2026 — Dados do Futebol transformados em Insights com Power BI
+# ⚽ Dashboard Copa do Mundo 2026 — Dados do futebol transformados em insights com Power BI
 
 <p align="left">
   <img src="https://img.shields.io/badge/Power%20BI-B58B00?style=for-the-badge&labelColor=B58B00" alt="Power BI"/>
@@ -31,12 +31,13 @@ O projeto foi criado para portfólio e aplica conceitos de coleta e organizaçã
 - [Modelagem de dados](#modelagem-de-dados)
 - [Principais medidas DAX](#principais-medidas-dax)
 - [Páginas do dashboard](#páginas-do-dashboard)
-- [Principais insights](#principais-insights)
+- [Conclusões da análise](#conclusões-da-análise)
 - [Destaques técnicos](#destaques-técnicos)
 - [Tecnologias utilizadas](#tecnologias-utilizadas)
 - [Como executar](#como-executar)
 - [Estrutura do repositório](#estrutura-do-repositório)
 - [Limitações dos dados](#limitações-dos-dados)
+- [Próximas melhorias](#próximas-melhorias)
 - [Aviso](#aviso)
 - [Autor](#autor)
 
@@ -104,29 +105,11 @@ O modelo foi estruturado com tabelas de **dimensão** e **fato**, mantendo os da
 | `FatoPartidas`        | **Tabela fato.** Registra cada partida, incluindo data, fase, grupo, estádio, seleções, placar e estatísticas coletivas.                                |
 | `FatoPartidasJogador` | **Tabela fato.** Registra eventos individuais por partida, como gols, assistências, cartões e gols contra.                                              |
 
-### Relacionamentos principais
+### Modelo dimensional
 
-```text
-DimSelecaoCasa[id_selecao]
-1 ─── * FatoPartidas[id_selecao_casa]
-
-DimSelecaoFora[id_selecao]
-1 ─── * FatoPartidas[id_selecao_fora]
-
-DimEstadio[id_estadio]
-1 ─── * FatoPartidas[id_estadio]
-
-FatoPartidas[id_jogo]
-1 ─── * FatoPartidasJogador[id_jogo]
-
-DimJogador[id_jogador]
-1 ─── * FatoPartidasJogador[id_jogador]
-
-DimSelecao[id_selecao]
-1 ─── * DimJogador[id_selecao]
-```
-
-Os relacionamentos foram configurados com cardinalidade **um para muitos**, direção de filtro **única** e status **ativo**.
+<p align="center">
+  <img src="assets/Modelo Dimensional.png" width="1000" alt="Modelo dimensional do projeto">
+</p>
 
 ### Decisão de modelagem
 
@@ -183,7 +166,122 @@ As medidas DAX foram desenvolvidas para produzir indicadores confiáveis e dinâ
 - textos dinâmicos: `FORMAT`, `CONCATENATEX`;
 - organização dos cálculos: `VAR` e `RETURN`.
 
-As medidas de destaque também tratam **empates na liderança**, exibindo todas as equipes ou jogadores que compartilham o maior valor.
+### Exemplos de medidas
+
+A seguir estão algumas das medidas desenvolvidas no projeto que demonstram o uso de tabelas virtuais, contexto de filtro, rankings e geração dinâmica de textos.
+
+#### Seleção com mais vitórias
+
+A medida consolida as vitórias de cada seleção como mandante e visitante, identifica o maior número de vitórias e trata possíveis empates na liderança.
+
+```DAX
+Equipe com Mais Vitórias - Cartão =
+VAR TabelaEquipes =
+    ADDCOLUMNS(
+        SELECTCOLUMNS(
+            ALL(DimSelecao),
+            "IdEquipe", DimSelecao[id_selecao],
+            "NomeEquipe", DimSelecao[selecao]
+        ),
+        "TotalVitorias",
+        VAR IdAtual = [IdEquipe]
+
+        VAR VitoriasCasa =
+            CALCULATE(
+                COUNTROWS(FatoPartidas),
+                FatoPartidas[id_selecao_casa] = IdAtual,
+                FatoPartidas[gols_casa] > FatoPartidas[gols_fora]
+            )
+
+        VAR VitoriasFora =
+            CALCULATE(
+                COUNTROWS(FatoPartidas),
+                FatoPartidas[id_selecao_fora] = IdAtual,
+                FatoPartidas[gols_fora] > FatoPartidas[gols_casa]
+            )
+
+        RETURN
+            VitoriasCasa + VitoriasFora
+    )
+
+VAR MaiorNumeroVitorias =
+    MAXX(
+        TabelaEquipes,
+        [TotalVitorias]
+    )
+
+VAR EquipesEmpatadas =
+    FILTER(
+        TabelaEquipes,
+        [TotalVitorias] = MaiorNumeroVitorias
+    )
+
+VAR NomesEquipes =
+    CONCATENATEX(
+        EquipesEmpatadas,
+        [NomeEquipe],
+        " e ",
+        [NomeEquipe],
+        ASC
+    )
+
+RETURN
+    NomesEquipes
+        & " (" & FORMAT(MaiorNumeroVitorias, "0") & IF( MaiorNumeroVitorias = 1, " vitória", " vitórias" ) & ")"
+```
+
+#### Estádio com mais gols
+
+A medida cria uma tabela virtual com os estádios, calcula o total de gols associado a cada um e utiliza `TOPN` para identificar o estádio com o maior valor.
+
+```DAX
+Estádio com Mais Gols =
+VAR TabelaEstadios =
+    ADDCOLUMNS(
+        ALL(
+            DimEstadio[id_estadio],
+            DimEstadio[estadio_fifa]
+        ),
+        "GolsMarcados", [Total de Gols]
+    )
+
+VAR TopEstadio =
+    TOPN(
+        1,
+        TabelaEstadios,
+        [GolsMarcados], DESC,
+        DimEstadio[estadio_fifa], ASC
+    )
+
+RETURN
+    CONCATENATEX( TopEstadio, DimEstadio[estadio_fifa] & " (" & FORMAT([GolsMarcados], "0") & " gols)", "" )
+```
+
+#### Artilheiro
+
+A medida agrupa os jogadores, calcula o total de gols de cada um e retorna dinamicamente o jogador — ou os jogadores, em caso de empate — com mais gols na competição.
+
+```DAX
+Artilheiro =
+VAR TabelaJogadores =
+    SUMMARIZE(
+        DimJogador,
+        DimJogador[jogador],
+        "TotalGols", SUM(FatoPartidasJogador[gols])
+    )
+
+VAR TopJogador =
+    TOPN(
+        1,
+        TabelaJogadores,
+        [TotalGols], DESC
+    )
+
+RETURN
+    CONCATENATEX( TopJogador, DimJogador[jogador] & UNICHAR(10) & " (" & [TotalGols] & " gols)", ", " )
+```
+
+Algumas medidas de destaque também tratam **empates na liderança**, exibindo todas as seleções ou jogadores que compartilham o maior valor.
 
 ---
 
@@ -249,30 +347,19 @@ Comparação dos locais da competição:
 
 ### 6️⃣ Insights
 
-Página dedicada a conclusões analíticas, sem repetir apenas os rankings das demais páginas:
-
-- seleção com maior eficiência ofensiva;
-- equipe com melhor defesa;
-- seleção com maior saldo médio por partida;
-- partida com maior diferença de gols;
-- relação entre finalizações e gols marcados;
-- comparação entre gols marcados e sofridos;
-- equilíbrio entre desempenho ofensivo e defensivo.
+Página dedicada à análise de relações entre desempenho ofensivo, defensivo e eficiência das seleções, utilizando cartões analíticos e gráficos de dispersão.
 
 ---
 
-## Principais insights
+## Conclusões da análise
 
-O dashboard permite identificar padrões como:
+A análise dos dados permitiu identificar alguns destaques e padrões relevantes da competição:
 
-- uma equipe pode finalizar mais e ainda apresentar baixa eficiência ofensiva;
-- a seleção com mais gols não necessariamente possui o melhor aproveitamento;
-- o artilheiro pode não ser o jogador com mais participações em gols;
-- uma equipe ofensiva pode também sofrer muitos gols;
-- o estádio com mais partidas pode não possuir a maior média de gols;
-- o volume de finalizações pode apresentar relação positiva com a quantidade de gols, mas não garante conversão eficiente.
-
-A página de Insights utiliza cartões textuais e gráficos de dispersão para transformar essas relações em conclusões mais fáceis de interpretar.
+- **Os Países Baixos** apresentaram a melhor eficiência ofensiva da competição, convertendo **23,9% das finalizações em gols**.
+- **Espanha** teve a melhor defesa, sofrendo em média apenas **0,13 gol por partida**.
+- **Alemanha** registrou a vitória mais dominante do torneio, com **7 a 1 sobre Curaçao**.
+- **Espanha** apresentou o melhor equilíbrio entre ataque e defesa, com **saldo médio de 1,63 gol por partida**.
+- A análise entre **finalizações e gols marcados** indica uma tendência positiva, embora maior volume ofensivo não garanta necessariamente maior eficiência.
 
 ---
 
@@ -301,6 +388,7 @@ A página de Insights utiliza cartões textuais e gráficos de dispersão para t
 | **DAX**              | Criação de medidas, rankings, indicadores e textos dinâmicos.  |
 | **Microsoft Excel**  | Organização inicial e armazenamento da base de dados.          |
 | **Canva**            | Criação autoral dos backgrounds e assets visuais do dashboard  |
+| **Google Sites**     | Publicação e apresentação online do dashboard.                 |
 | **Git**              | Versionamento do projeto.                                      |
 | **GitHub**           | Documentação e publicação do portfólio.                        |
 
@@ -325,6 +413,7 @@ copa-do-mundo-2026-power-bi/
 │
 ├── assets/
 │   ├── Preview.png
+│   ├── Modelo Dimensional.png
 │   ├── Visão Geral.png
 │   ├── Seleções.png
 │   ├── Jogadores.png
@@ -349,6 +438,15 @@ copa-do-mundo-2026-power-bi/
 
 ---
 
+## Próximas melhorias
+
+- Automatizar parte da coleta de dados por meio de APIs.
+- Criar uma versão mobile do dashboard.
+- Adicionar novos indicadores estatísticos.
+- Explorar atualização automatizada dos dados.
+
+---
+
 ## Aviso
 
 Este é um projeto acadêmico e independente, desenvolvido para fins de estudo e portfólio.
@@ -363,5 +461,5 @@ Desenvolvido por **Jorge Gabriel Modrow**.
 
 Estudante de Tecnologia em Análise e Desenvolvimento de Sistemas na **Universidade Federal do Paraná — UFPR**.
 
-- LinkedIn: [Jorge Gabriel Modrow](https://www.linkedin.com/in/jorgemodrow/)
-- GitHub: [Jorge Gabriel Modrow](https://github.com/jorgemodrow)
+- LinkedIn: [Ver perfil](https://www.linkedin.com/in/jorgemodrow/)
+- GitHub: [Ver perfil](https://github.com/jorgemodrow)
