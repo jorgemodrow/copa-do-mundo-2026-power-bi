@@ -388,6 +388,7 @@ A análise dos dados permitiu identificar alguns destaques e padrões relevantes
 | **DAX**              | Criação de medidas, rankings, indicadores e textos dinâmicos.  |
 | **Microsoft Excel**  | Organização inicial e armazenamento da base de dados.          |
 | **Canva**            | Criação autoral dos backgrounds e assets visuais do dashboard  |
+| **Google Sites**     | Publicação e apresentação online do dashboard.                 |
 | **Git**              | Versionamento do projeto.                                      |
 | **GitHub**           | Documentação e publicação do portfólio.                        |
 
@@ -460,5 +461,5 @@ Desenvolvido por **Jorge Gabriel Modrow**.
 
 Estudante de Tecnologia em Análise e Desenvolvimento de Sistemas na **Universidade Federal do Paraná — UFPR**.
 
-- LinkedIn: [Jorge Gabriel Modrow](https://www.linkedin.com/in/jorgemodrow/)
-- GitHub: [Jorge Gabriel Modrow](https://github.com/jorgemodrow)
+- LinkedIn: [Ver perfil](https://www.linkedin.com/in/jorgemodrow/)
+- GitHub: [Ver perfil](https://github.com/jorgemodrow)
