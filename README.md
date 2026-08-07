@@ -108,7 +108,7 @@ O modelo foi estruturado com tabelas de **dimensão** e **fato**, mantendo os da
 ### Modelo dimensional
 
 <p align="center">
-  <img src="assets/Modelo Dimensional.png" width="1000" alt="Modelo dimensional do projeto">
+  <img src="assets/Modelo dimensional.png" width="1000" alt="Modelo dimensional do projeto">
 </p>
 
 ### Decisão de modelagem
