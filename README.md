@@ -8,32 +8,37 @@
   <img src="https://img.shields.io/badge/Status-Conclu%C3%ADdo-brightgreen?style=for-the-badge" alt="Status: Concluído"/>
 </p>
 
-Projeto de análise de dados desenvolvido no **Power BI** para explorar os principais acontecimentos da Copa do Mundo de 2026. O dashboard reúne indicadores, rankings, comparações e insights sobre **partidas, seleções, jogadores, estádios, gols, assistências, cartões e desempenho esportivo**.
+Projeto de análise de dados desenvolvido no **Power BI** para explorar os principais acontecimentos da Copa do Mundo de 2026. O dashboard reúne indicadores, rankings, comparações e insights sobre partidas, seleções, jogadores, estádios, gols, assistências, cartões e desempenho esportivo.
 
-O projeto foi criado para portfólio e aplica, de ponta a ponta, conceitos de **coleta e organização de dados, modelagem dimensional, Power Query, DAX, visualização de dados e experiência do usuário**.
+O projeto foi criado para portfólio e aplica conceitos de coleta e organização de dados, modelagem dimensional, Power Query, DAX, visualização de dados e experiência do usuário.
 
 🔗 **Acesse o Dashboard:**  
-👉 [Dashboard Copa do Mundo 2026](https://sites.google.com/view/dashboardcopadomundo/in%C3%ADcio) (clique com o botão direito → Abrir link em uma nova guia)
+👉 [Dashboard Copa do Mundo 2026](https://sites.google.com/view/dashboardcopadomundo/in%C3%ADcio)
+
+---
+
+<p align="center">
+  <img src="assets/Preview.png" width="900">
+</p>
 
 ---
 
 ## Sumário
 
-- [Visão geral](#-visão-geral)
-- [Objetivos do projeto](#-objetivos-do-projeto)
-- [Fonte e preparação dos dados](#-fonte-e-preparação-dos-dados)
-- [Modelagem de dados](#-modelagem-de-dados)
-- [Principais medidas DAX](#-principais-medidas-dax)
-- [Páginas do dashboard](#-páginas-do-dashboard)
-- [Principais insights](#-principais-insights)
-- [Destaques técnicos](#-destaques-técnicos)
-- [Tecnologias utilizadas](#-tecnologias-utilizadas)
-- [Como executar](#-como-executar)
-- [Estrutura do repositório](#-estrutura-do-repositório)
-- [Limitações dos dados](#-limitações-dos-dados)
-- [Próximas melhorias](#-próximas-melhorias)
-- [Aviso](#-aviso)
-- [Autor](#-autor)
+- [Visão geral](#visão-geral)
+- [Objetivos do projeto](#objetivos-do-projeto)
+- [Fonte e preparação dos dados](#fonte-e-preparação-dos-dados)
+- [Modelagem de dados](#modelagem-de-dados)
+- [Principais medidas DAX](#principais-medidas-dax)
+- [Páginas do dashboard](#páginas-do-dashboard)
+- [Principais insights](#principais-insights)
+- [Destaques técnicos](#destaques-técnicos)
+- [Tecnologias utilizadas](#tecnologias-utilizadas)
+- [Como executar](#como-executar)
+- [Estrutura do repositório](#estrutura-do-repositório)
+- [Limitações dos dados](#limitações-dos-dados)
+- [Aviso](#aviso)
+- [Autor](#autor)
 
 ---
 
@@ -89,15 +94,15 @@ Os registros foram reunidos manualmente em uma planilha do **Microsoft Excel**, 
 
 O modelo foi estruturado com tabelas de **dimensão** e **fato**, mantendo os dados descritivos separados dos registros de eventos e resultados.
 
-| Tabela                | Tipo / função |
-|-----------------------|---------------|
+| Tabela                | Tipo / função                                                                                                                                           |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `DimSelecao`          | **Dimensão.** Armazena nome da seleção, continente, confederação, ranking FIFA e quantidade de títulos. Também relaciona os jogadores às suas seleções. |
-| `DimSelecaoCasa`      | **Dimensão de papel.** Representa a seleção mandante e mantém ativo o relacionamento com `FatoPartidas[id_selecao_casa]`. |
-| `DimSelecaoFora`      | **Dimensão de papel.** Representa a seleção visitante e mantém ativo o relacionamento com `FatoPartidas[id_selecao_fora]`. |
-| `DimJogador`          | **Dimensão.** Contém o identificador, o nome e a seleção dos jogadores presentes nos registros de eventos. |
-| `DimEstadio`          | **Dimensão.** Reúne nome oficial, nome utilizado na competição, cidade, país e capacidade dos estádios. |
-| `FatoPartidas`        | **Tabela fato.** Registra cada partida, incluindo data, fase, grupo, estádio, seleções, placar e estatísticas coletivas. |
-| `FatoPartidasJogador` | **Tabela fato.** Registra eventos individuais por partida, como gols, assistências, cartões e gols contra. |
+| `DimSelecaoCasa`      | **Dimensão de papel.** Representa a seleção mandante e mantém ativo o relacionamento com `FatoPartidas[id_selecao_casa]`.                               |
+| `DimSelecaoFora`      | **Dimensão de papel.** Representa a seleção visitante e mantém ativo o relacionamento com `FatoPartidas[id_selecao_fora]`.                              |
+| `DimJogador`          | **Dimensão.** Contém o identificador, o nome e a seleção dos jogadores presentes nos registros de eventos.                                              |
+| `DimEstadio`          | **Dimensão.** Reúne nome oficial, nome utilizado na competição, cidade, país e capacidade dos estádios.                                                 |
+| `FatoPartidas`        | **Tabela fato.** Registra cada partida, incluindo data, fase, grupo, estádio, seleções, placar e estatísticas coletivas.                                |
+| `FatoPartidasJogador` | **Tabela fato.** Registra eventos individuais por partida, como gols, assistências, cartões e gols contra.                                              |
 
 ### Relacionamentos principais
 
@@ -319,6 +324,7 @@ A página de Insights utiliza cartões textuais e gráficos de dispersão para t
 copa-do-mundo-2026-power-bi/
 │
 ├── assets/
+│   ├── Preview.png
 │   ├── Visão Geral.png
 │   ├── Seleções.png
 │   ├── Jogadores.png
