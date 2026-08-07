@@ -13,7 +13,7 @@ Projeto de análise de dados desenvolvido no **Power BI** para explorar os princ
 O projeto foi criado para portfólio e aplica conceitos de coleta e organização de dados, modelagem dimensional, Power Query, DAX, visualização de dados e experiência do usuário.
 
 🔗 **Acesse o Dashboard:**  
-👉 [Dashboard Copa do Mundo 2026](https://sites.google.com/view/dashboardcopadomundo/in%C3%ADcio)
+👉 [Dashboard Copa do Mundo 2026](https://sites.google.com/view/dashboardcopadomundo2026/)
 
 ---
 
