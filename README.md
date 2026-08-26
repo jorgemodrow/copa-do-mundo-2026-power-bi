@@ -13,7 +13,7 @@ Projeto de análise de dados desenvolvido no **Power BI** para explorar os princ
 O projeto foi criado para portfólio e aplica conceitos de coleta e organização de dados, modelagem dimensional, Power Query, DAX, visualização de dados e experiência do usuário.
 
 🔗 **Acesse o Dashboard:**  
-👉 [Dashboard Copa do Mundo 2026](https://sites.google.com/view/dashboardcopadomundo/in%C3%ADcio)
+👉 [Dashboard Copa do Mundo 2026](https://sites.google.com/view/dashboardcopadomundo2026/)
 
 ---
 
@@ -108,7 +108,7 @@ O modelo foi estruturado com tabelas de **dimensão** e **fato**, mantendo os da
 ### Modelo dimensional
 
 <p align="center">
-  <img src="assets/Modelo Dimensional.png" width="1000" alt="Modelo dimensional do projeto">
+  <img src="assets/Modelo dimensional.png" width="1000" alt="Modelo dimensional do projeto">
 </p>
 
 ### Decisão de modelagem
