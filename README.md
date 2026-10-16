@@ -6,6 +6,7 @@
   <img src="https://img.shields.io/badge/Power%20Query-007C91?style=for-the-badge" alt="Power Query"/>
   <img src="https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoftexcel&logoColor=ffffff" alt="Excel"/>
   <img src="https://img.shields.io/badge/Status-Concluído-brightgreen?style=for-the-badge" alt="Status: Concluído"/>
+  <img src="https://img.shields.io/badge/Licença-MIT-green?style=for-the-badge" alt="Licença MIT" />
 </p>
 
 Projeto de análise de dados desenvolvido no **Power BI** para explorar os principais acontecimentos da Copa do Mundo de 2026. O dashboard reúne indicadores, rankings, comparações e insights sobre partidas, seleções, jogadores, estádios, gols, assistências, cartões e desempenho esportivo.
@@ -452,6 +453,12 @@ copa-do-mundo-2026-power-bi/
 Este é um projeto acadêmico e independente, desenvolvido para fins de estudo e portfólio.
 
 O projeto não possui vínculo, patrocínio ou associação oficial com a FIFA ou com os organizadores da competição.
+
+---
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
 
 ---
 
